@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import connectDB from './config/database';  // Import the DB connection
+import connectDB from './config/database';  
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config(); 
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -10,12 +10,12 @@ const PORT = process.env.PORT || 8000;
 // Middleware for parsing JSON
 app.use(express.json());
 
-// MongoDB connection
-connectDB();
+
+
 
 // Sample data
 const data = [
-  { id: '11', item: 'Pizza', quantity: 2, address: '123 Street', status: 'Pending' },
+
   { id: '22', item: 'Molo', quantity: 1, address: '321 Street', status: 'Ready' },
 ];
 
@@ -31,7 +31,8 @@ app.get('/data/:id', (req: Request, res: Response) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
 });
