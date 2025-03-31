@@ -1,38 +1,30 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import connectDB from './config/database';  
+import connectDB from './config/database';
+import { foodRouter } from './routes/foodRoutes';
 
-dotenv.config(); 
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware for parsing JSON
 app.use(express.json());
-
-
-
-
-// Sample data
-const data = [
-
-  { id: '22', item: 'Molo', quantity: 1, address: '321 Street', status: 'Ready' },
+connectDB()
+const food = [
+  {
+    id: 1,
+    foodName: "pizza",
+    price: 2000,
+    image: "imgurl",
+    ingredients: "guril",
+    category: "main"
+  }
 ];
 
-// API route to fetch data by ID
-app.get('/data/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  const response = data.find(each => each.id === id);
 
-  if (!response) {
-    res.status(404).json({ message: 'No data found' });
-  } else {
-    res.json(response);
-  }
-});
+app.use('/api/v1/food', foodRouter)
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-  });
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
