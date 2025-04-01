@@ -1,7 +1,9 @@
 import express from 'express';
-import { createdFood } from '../controller/food';
-
+import { createdFood, getAllFood, getFoodById } from '../controller/foodController';
 
 const foodRouter = express.Router();
- foodRouter.post('/', createdFood);
- export {foodRouter};  
+
+foodRouter.post('/', createdFood);
+foodRouter.get('/:id', getFoodById);
+foodRouter.get('/', getAllFood)
+export { foodRouter };  
