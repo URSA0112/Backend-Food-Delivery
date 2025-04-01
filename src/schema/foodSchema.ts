@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
 const foodSchema = new Schema(
-    {   _id: { type: String, required: false },
-        foodName: { type: String, required: true },
+    {   
+        foodName: { type: String, required: true,},
         price: { type: Number, required: false },
         image: { type: String, required: false },
         ingredients: { type: String, required: false},
@@ -16,5 +16,5 @@ const foodSchema = new Schema(
     {
         timestamps: true,
     })
-const Food = mongoose.model('Food', foodSchema);
+const Food = mongoose.model('Foods', foodSchema);
 export default Food

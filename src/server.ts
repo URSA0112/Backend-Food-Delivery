@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/database';
 import { foodRouter } from './routes/foodRoutes';
-import Food from './schema/foodSchema';
 
 dotenv.config();
 
