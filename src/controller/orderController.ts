@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import FoodOrder from '../schema/orderSchema';
+import FoodOrder from '../schema/OrderSchema';
 
 
 export const createOrder = async (req: Request, res: Response) => {
@@ -73,7 +73,7 @@ export const getAllOrder = async (req: Request, res: Response) => {
 }
 
 //update
-export const updateFoodById = async (req: Request, res: Response) => {
+export const updateOrderById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const updatingOrder = req.body
     try {

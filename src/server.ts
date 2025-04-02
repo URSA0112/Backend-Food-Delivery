@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/database';
 import { foodRouter } from './routes/foodRoutes';
 import { categoryRouter } from './routes/categoryRoutes';
+import { orderRouter } from './routes/orderRoutes';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/v1/food', foodRouter);
 app.use('/api/v1/category', categoryRouter)
+app.use('api/v1/order', orderRouter)
 
 
 

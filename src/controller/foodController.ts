@@ -33,10 +33,16 @@ export const getFoodById = async (req: Request, res: Response) => {
             });
             return;
         }
-        res.status(200).json({ success: true, data: food });
+        res.status(200).json({
+            success: true,
+            data: food
+        });
 
     } catch (error: any) {
-        res.status(500).json({ success: false, message: `Error fetching food item: ${error.message}` });
+        res.status(500).json({
+            success: false,
+            message: `Error fetching food item: ${error.message}`
+        });
         return
     }
 };
@@ -46,7 +52,10 @@ export const getAllFood = async (req: Request, res: Response) => {
     try {
         const allFood = await Food.find()
         if (allFood.length === 0) {
-            res.status(404).json({ success: false, message: 'No any Foods in data' });
+            res.status(404).json({
+                success: false,
+                message: 'No any Foods in data'
+            });
             return;
         }
         res.status(200).json({
@@ -55,7 +64,10 @@ export const getAllFood = async (req: Request, res: Response) => {
         })
 
     } catch (error: any) {
-        res.status(500).json({ success: false, message: `Error fetching all food: ${error.message}` });
+        res.status(500).json({
+            success: false,
+            message: `Error fetching all food: ${error.message}`
+        });
         return
     }
 }
@@ -65,19 +77,28 @@ export const updateFoodById = async (req: Request, res: Response) => {
     const newFood = req.body
     try {
         if (Object.keys(newFood).length === 0) {
-            res.status(400).json({ success: false, message: 'No update data provided' });
+            res.status(400).json({
+                success: false,
+                message: 'No update data provided'
+            });
             return;
         }
         const oldFood = await Food.findById(id);
         if (!oldFood) {
-            res.status(404).json({ success: false, message: 'Category not found' });
+            res.status(404).json({
+                success: false,
+                message: 'Category not found'
+            });
             return
         }
 
         const updatedFood = await Food.findByIdAndUpdate(id, newFood, { new: true })
 
         if (!updatedFood) {
-            res.status(404).json({ success: false, message: 'Category not found' });
+            res.status(404).json({
+                success: false,
+                message: 'Category not found'
+            });
             return
         }
         res.status(200).json({
@@ -88,7 +109,10 @@ export const updateFoodById = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         console.error(error)
-        res.status(500).json({ success: false, message: `Server error: ${error.message}` })
+        res.status(500).json({
+            success: false,
+            message: `Server error: ${error.message}`
+        })
     }
 }
 //Delete 
@@ -97,14 +121,19 @@ export const deleteFoodById = async (req: Request, res: Response) => {
     try {
         const food = await Food.findOneAndDelete({ _id: id })
         if (!food) {
-            res.status(404).json({ success: false, message: 'Food not found' });
+            res.status(404).json({
+                success: false,
+                message: 'Food not found'
+            });
             return
         }
         res.status(200).json({ success: true, data: food });
     } catch (error: any) {
         console.error(error);
-        res.status(500).json({ success: false, message: `Server error ${error.message}` })
+        res.status(500).json({
+            success: false,
+            message: `Server error ${error.message}`
+        })
     }
-
 }
 
