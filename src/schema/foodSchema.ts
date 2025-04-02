@@ -7,9 +7,9 @@ const foodSchema = new Schema(
         image: { type: String, required: false },
         ingredients: { type: String, required: false},
         category: {
-            type: mongoose.Types.ObjectId,
-             ref: 'category',
-             required: false
+            type: mongoose.Schema.Types.ObjectId,
+             ref: 'Category',
+             required: true,
             
         },
     },

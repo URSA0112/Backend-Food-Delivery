@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/database';
 import { foodRouter } from './routes/foodRoutes';
+import { categoryRouter } from './routes/categoryRoutes';
 
 dotenv.config();
 
@@ -9,6 +10,12 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
+
+app.use('/api/v1/food', foodRouter);
+app.use('/api/v1/category', categoryRouter)
+
+
+
 
 connectDB()
   .then(() => {
@@ -21,7 +28,7 @@ connectDB()
     process.exit(1); 
   });
   
-app.use('/api/v1/food', foodRouter);
+
 
 
 
