@@ -3,8 +3,8 @@ import { createOrder, getAllOrder, getOrderById, updateOrderById } from '../cont
 
 const orderRouter = express.Router();
 orderRouter.post('/', createOrder)
-    .get('/:id', getOrderById)
     .get('/', getAllOrder)
+    .get('/:id', getOrderById)
     .patch('/:id', updateOrderById)
 
 export { orderRouter }

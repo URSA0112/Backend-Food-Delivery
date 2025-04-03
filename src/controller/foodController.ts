@@ -71,6 +71,7 @@ export const getAllFood = async (req: Request, res: Response) => {
         return
     }
 }
+
 //update
 export const updateFoodById = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -119,7 +120,7 @@ export const updateFoodById = async (req: Request, res: Response) => {
 export const deleteFoodById = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const food = await Food.findOneAndDelete({ _id: id })
+        const food = await Food.findByIdAndDelete({ _id: id })
         if (!food) {
             res.status(404).json({
                 success: false,

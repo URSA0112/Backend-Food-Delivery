@@ -4,9 +4,10 @@ import { createdFood, getAllFood, getFoodById, deleteFoodById, updateFoodById } 
 const foodRouter = express.Router();
 
 foodRouter.post('/', createdFood)
-    .get('/:id', getFoodById)
     .get('/', getAllFood)
+    .get('/:id', getFoodById)
     .patch('/:id', updateFoodById)
     .delete('/:id', deleteFoodById)
+
 
 export { foodRouter };  

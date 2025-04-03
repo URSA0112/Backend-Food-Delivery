@@ -6,13 +6,16 @@ const userSchema = new Schema({
     password: { type: String },
     phoneNumber: { type: String },
     address: { type: String },
-    role: { type: UserRoleEnum },
-    orderedFoods: { type: mongoose.Schema.Types.ObjectId, ref :'Food' },
+    role: {
+        type: String,
+        enum: Object.values(UserRoleEnum),
+    },
+    orderedFoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
     isVerified: { type: Boolean },
 },
     {
         timestamps: true,
     })
 
-    const User = mongoose.model('user', userSchema)
-    export default User
+const User = mongoose.model('users', userSchema)
+export default User

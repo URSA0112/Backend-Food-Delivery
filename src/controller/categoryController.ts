@@ -107,7 +107,37 @@ export const deleteCategoryById = async (req: Request, res: Response) => {
     }
 }
 
+// get 2 collection together (FOOD in Category)
+export const getAllCategoriesWithFoods = async (req: Request, res: Response) => {
 
-
+    try {
+        const categories = await Category.aggregate(
+            [
+                {
+                    $lookup: {
+                        from: "foods",
+                        localField: "_id",
+                        foreignField: "category",
+                        as: "foods"
+                    }
+                }
+            ]);
+        if (categories.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: 'No categories found or no foods available in categories.'
+            });
+            return;
+        }
+        res.status(200).json({ success: true, categories })
+    } catch (error: any) {
+        console.error('Error fetching categories with foods:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while fetching categories and foods. Please try again later.',
+            error: error.message || error
+        });
+    }
+}
 
 

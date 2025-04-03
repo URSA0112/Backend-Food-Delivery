@@ -16,9 +16,6 @@ app.use('/api/v1/food', foodRouter);
 app.use('/api/v1/category', categoryRouter)
 app.use('api/v1/order', orderRouter)
 
-
-
-
 connectDB()
   .then(() => {
     app.listen(PORT, () => {

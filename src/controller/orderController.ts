@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import FoodOrder from '../schema/OrderSchema';
+import FoodOrder from '../schema/orderSchema';
 
 
 export const createOrder = async (req: Request, res: Response) => {
