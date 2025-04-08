@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/database';
 import { foodRouter } from './routes/foodRoutes';
@@ -30,15 +30,3 @@ connectDB()
 
 
 
-
-
-//const food = [
-//   {
-//     id: 1,
-//     foodName: "pizza",
-//     price: 2000,
-//     image: "imgurl",
-//     ingredients: "guril",
-//     category: "main"
-//   }
-// ];
