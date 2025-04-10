@@ -36,13 +36,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const userRoleEnum_1 = require("../enums/userRoleEnum");
 const userSchema = new mongoose_1.Schema({
-    email: { type: String },
-    password: { type: String },
-    phoneNumber: { type: String },
-    address: { type: String },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    address: { type: String, required: false },
     role: {
         type: String,
         enum: Object.values(userRoleEnum_1.UserRoleEnum),
+        required: true
     },
     orderedFoods: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Food' },
     isVerified: { type: Boolean },
