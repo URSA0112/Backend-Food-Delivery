@@ -4,7 +4,7 @@ import connectDB from './config/database';
 import { foodRouter } from './routes/foodRoutes';
 import { categoryRouter } from './routes/categoryRoutes';
 import { orderRouter } from './routes/orderRoutes';
-import cors from 'cors'; 
+import cors from 'cors';
 import { Request, Response } from 'express';
 
 
@@ -20,7 +20,8 @@ app.use(cors());
 app.use('/api/v1/food', foodRouter);
 app.use('/api/v1/category', categoryRouter)
 app.use('api/v1/order', orderRouter)
-app.get('api/v1', (req : Request ,res : Response) => {res.status(200).json({ success: true, message: 'Base URL is working' }})
+app.get('api/v1', (req: Request, res: Response) => {res.status(200).json(
+  { success: true, message: 'Base URL is working' })})
 
 connectDB()
   .then(() => {
