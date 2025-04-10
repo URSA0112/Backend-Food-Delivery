@@ -7,8 +7,6 @@ import { orderRouter } from './routes/orderRoutes';
 import cors from 'cors';
 import { Request, Response } from 'express';
 
-
-
 dotenv.config();
 
 const app = express();
@@ -19,8 +17,8 @@ app.use(express.json());
 app.use(cors());
 app.use('/api/v1/food', foodRouter);
 app.use('/api/v1/category', categoryRouter)
-app.use('api/v1/order', orderRouter)
-app.get('api/v1', (req: Request, res: Response) => {res.status(200).json(
+app.use('/api/v1/order', orderRouter)
+app.get('/api/v1', (req: Request, res: Response) => {res.status(200).json(
   { success: true, message: 'Base URL is working' })})
 
 connectDB()
