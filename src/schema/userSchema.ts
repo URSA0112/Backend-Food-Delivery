@@ -1,7 +1,21 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import { UserRoleEnum } from "../enums/userRoleEnum";
 
-const userSchema = new Schema({
+// Define TypeScript interface for the User schema
+interface IUser extends Document {
+    email: string;
+    password: string;
+    phoneNumber?: string;
+    address?: string;
+    role: UserRoleEnum;
+    orderedFoods: mongoose.Schema.Types.ObjectId;
+    isVerified: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+// Define the schema for the user
+const userSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: true },
     phoneNumber: { type: String, required: false },
@@ -13,10 +27,11 @@ const userSchema = new Schema({
     },
     orderedFoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
     isVerified: { type: Boolean },
-},
-    {
-        timestamps: true,
-    })
+}, {
+    timestamps: true,  // This will automatically add `createdAt` and `updatedAt` fields
+});
 
-const User = mongoose.model('users', userSchema)
-export default User
+// Create and export the User model based on the schema and interface
+const User = mongoose.model<IUser>('User', userSchema);
+
+export default User;

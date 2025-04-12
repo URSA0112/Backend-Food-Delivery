@@ -5,14 +5,14 @@ import { Request, Response } from 'express';
 export const createdFood = async (req: Request, res: Response) => {
     try {
         const newfood = await Food.create(req.body);
-         res.status(201).json({
+        res.status(201).json({
             success: true,
             message: `New food added `,
             data: newfood,
         });
     } catch (error: any) {
         console.error('Create food error:', error);
-res.status(400).json({
+        res.status(400).json({
             success: false,
             message: error.message || 'Failed to create food',
         })

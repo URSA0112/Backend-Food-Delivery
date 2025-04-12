@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import bcrypt from "bcrypt";
 import User from '../schema/userSchema';
 import jwt from 'jsonwebtoken'
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 export const signUp = async (req: Request, res: Response) => {
@@ -55,7 +56,7 @@ export const signUp = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    try {
+    try {        
         const user = await User.findOne({ email })
         if (!user) {
             res.status(404).json({ success: false, message: 'Email or password is incorrect' });
@@ -69,17 +70,15 @@ export const login = async (req: Request, res: Response) => {
             return;
         }
 
-        // jwt.sign(user, process.env.SECRET_KEY, { expiresIn: '1h' })
+        const { password: _, ...userObj } = user.toObject();
 
-        const userObject: { [key: string]: any } = user.toObject();
-        delete userObject.password;
-
+        const token = jwt.sign({ userObj }, process.env.SECRET_KEY as string, { expiresIn: '1h' })
         res.status(200).json({
             success: true,
             message: 'Login successful',
-            user: userObject,
+            token,
         });
         return;
     }
-    catch (error: any) { res.status(500).json({ message: error.message }) }
+    catch (error: any) { res.status(500).json({ message: error.message || 'Server Error' }) }
 }
