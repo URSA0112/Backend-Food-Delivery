@@ -1,6 +1,6 @@
 
 export enum FoodOrderStatusEnum {
-    PENDING = "Pending",
-    COMPLETED = "Completed",
-    CANCELLED = "Cancelled"
+    PENDING = "pending",
+    COMPLETED = "completed",
+    CANCELLED = "cancelled"
 }

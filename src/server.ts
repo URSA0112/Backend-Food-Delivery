@@ -6,6 +6,8 @@ import { categoryRouter } from './routes/categoryRoutes';
 import { orderRouter } from './routes/orderRoutes';
 import cors from 'cors';
 import { Request, Response } from 'express';
+import { authRouter } from './routes/authenticationRoutes';
+
 
 dotenv.config();
 
@@ -18,8 +20,13 @@ app.use(cors());
 app.use('/api/v1/food', foodRouter);
 app.use('/api/v1/category', categoryRouter)
 app.use('/api/v1/order', orderRouter)
-app.get('/api/v1', (req: Request, res: Response) => {res.status(200).json(
-  { success: true, message: 'Base URL is working' })})
+app.use('/api/v1/auth', authRouter)
+
+
+app.get('/api/v1', (req: Request, res: Response) => {
+  res.status(200).json(
+    { success: true, message: 'Base URL is working' })
+})
 
 connectDB()
   .then(() => {
