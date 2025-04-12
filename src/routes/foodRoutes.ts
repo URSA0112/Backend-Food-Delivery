@@ -8,7 +8,6 @@ foodRouter.post('/', createdFood)
     .get('/', getAllFood)
     .get('/:id', getFoodById)
     .patch('/:id', checkTokenAdmin, updateFoodById)
-    .delete('/:id',checkTokenAdmin, deleteFoodById)
-
-
+    .delete('/:id', checkTokenAdmin, deleteFoodById)
+    
 export { foodRouter };  
