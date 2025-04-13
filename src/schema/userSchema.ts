@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { UserRoleEnum } from "../enums/userRoleEnum";
 
-// Define TypeScript interface for the User schema
+
 interface IUser extends Document {
     email: string;
     password: string;
@@ -14,7 +14,7 @@ interface IUser extends Document {
     updatedAt: Date;
 }
 
-// Define the schema for the user
+
 const userSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: true },
@@ -23,7 +23,8 @@ const userSchema = new Schema<IUser>({
     role: {
         type: String,
         enum: Object.values(UserRoleEnum),
-        required: true
+        required: false,
+        default: UserRoleEnum.USER,
     },
     orderedFoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
     isVerified: { type: Boolean },

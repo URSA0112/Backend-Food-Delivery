@@ -36,19 +36,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const userRoleEnum_1 = require("../enums/userRoleEnum");
 const userSchema = new mongoose_1.Schema({
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: false },
     address: { type: String, required: false },
     role: {
         type: String,
         enum: Object.values(userRoleEnum_1.UserRoleEnum),
-        required: true
+        required: false,
+        default: userRoleEnum_1.UserRoleEnum.USER,
     },
     orderedFoods: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Food' },
     isVerified: { type: Boolean },
 }, {
-    timestamps: true,
+    timestamps: true, // This will automatically add `createdAt` and `updatedAt` fields
 });
-const User = mongoose_1.default.model('users', userSchema);
+// Create and export the User model based on the schema and interface
+const User = mongoose_1.default.model('User', userSchema);
 exports.default = User;

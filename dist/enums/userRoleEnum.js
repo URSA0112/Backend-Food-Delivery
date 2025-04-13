@@ -3,6 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRoleEnum = void 0;
 var UserRoleEnum;
 (function (UserRoleEnum) {
-    UserRoleEnum["USER"] = "User";
-    UserRoleEnum["ADMIN"] = "Admin";
+    UserRoleEnum["USER"] = "user";
+    UserRoleEnum["ADMIN"] = "admin";
 })(UserRoleEnum || (exports.UserRoleEnum = UserRoleEnum = {}));

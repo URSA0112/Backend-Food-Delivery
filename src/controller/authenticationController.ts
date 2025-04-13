@@ -28,6 +28,7 @@ export const signUp = async (req: Request, res: Response) => {
                 success: true,
                 message: `UserCreated ${newUser}`
             });
+            return;
             //Email davhardsan ERROR of MONGODP == UNIQUE : true
         } catch (error: any) {
             if (error.code === 11000 && error.keyPattern?.email) {
@@ -35,6 +36,7 @@ export const signUp = async (req: Request, res: Response) => {
                     success: false,
                     message: 'This email is already registered. Please use another one.'
                 })
+                return;
             }
             res.status(500).json({
                 success: false,
@@ -50,6 +52,7 @@ export const signUp = async (req: Request, res: Response) => {
             success: false,
             message: error.message || 'Unexpected server error',
         })
+        return;
     }
 }
 
