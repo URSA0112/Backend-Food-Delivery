@@ -24,9 +24,12 @@ export const signUp = async (req: Request, res: Response) => {
         //After Hashed Pass, Trying to Creating New User . (Schema validation baihgui bol error)
         try {
             const newUser = await User.create({ ...req.body, password: hash })
-            res.status(201).json({
+            const { password: _, ...userObj } = newUser.toObject();
+            const token = jwt.sign({ userObj }, process.env.SECRET_KEY as string, { expiresIn: '1h' })
+            res.status(200).json({
                 success: true,
-                message: `UserCreated ${newUser}`
+                message: 'Login successful',
+                token,
             });
             return;
             //Email davhardsan ERROR of MONGODP == UNIQUE : true
@@ -59,7 +62,7 @@ export const signUp = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    try {        
+    try {
         const user = await User.findOne({ email })
         if (!user) {
             res.status(404).json({ success: false, message: 'Email or password is incorrect' });
