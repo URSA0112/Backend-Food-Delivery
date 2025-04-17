@@ -24,7 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.signUp = void 0;
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const userSchema_1 = __importDefault(require("../schema/userSchema"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -43,8 +43,8 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         //BCRYPT process
-        const salt = yield bcrypt_1.default.genSalt(12);
-        const hash = yield bcrypt_1.default.hash(password, salt);
+        const salt = yield bcryptjs_1.default.genSalt(12);
+        const hash = yield bcryptjs_1.default.hash(password, salt);
         //After Hashed Pass, Trying to Creating New User . (Schema validation baihgui bol error)
         try {
             const newUser = yield userSchema_1.default.create(Object.assign(Object.assign({}, req.body), { password: hash }));
@@ -92,7 +92,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(404).json({ success: false, message: 'Hmm… we couldn’t find that user. Try checking your email or sign up instead!' });
             return;
         }
-        const isMatch = yield bcrypt_1.default.compare(password, user.password);
+        const isMatch = yield bcryptjs_1.default.compare(password, user.password);
         if (!isMatch) {
             res.status(401).json({ success: false, message: 'Email or password is incorrect' });
             return;
