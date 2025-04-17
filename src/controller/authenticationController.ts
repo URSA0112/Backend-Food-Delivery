@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import User from '../schema/userSchema';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
