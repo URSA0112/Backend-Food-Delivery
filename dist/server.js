@@ -15,7 +15,14 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8000;
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://frontend-food-delivery-ggqvcwjy7-ursa0112s-projects.vercel.app"
+];
+app.use((0, cors_1.default)({
+    origin: allowedOrigins,
+    credentials: true
+}));
 app.use('/api/v1/food', foodRoutes_1.foodRouter);
 app.use('/api/v1/category', categoryRoutes_1.categoryRouter);
 app.use('/api/v1/order', orderRoutes_1.orderRouter);

@@ -16,7 +16,15 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://frontend-food-delivery-ggqvcwjy7-ursa0112s-projects.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use('/api/v1/food', foodRouter);
 app.use('/api/v1/category', categoryRouter)
 app.use('/api/v1/order', orderRouter)
