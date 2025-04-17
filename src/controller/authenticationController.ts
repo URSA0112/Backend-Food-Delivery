@@ -37,7 +37,8 @@ export const signUp = async (req: Request, res: Response) => {
             if (error.code === 11000 && error.keyPattern?.email) {
                 res.status(400).json({
                     success: false,
-                    message: 'This email is already registered. Please use another one.'
+                    message: `Oops! That email is already in use. Try logging in or use another one to register.`
+
                 })
                 return;
             }
@@ -65,7 +66,7 @@ export const login = async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ email })
         if (!user) {
-            res.status(404).json({ success: false, message: 'Email or password is incorrect' });
+            res.status(404).json({ success: false, message: 'Hmm… we couldn’t find that user. Try checking your email or sign up instead!' });
             return;
         }
 
@@ -88,3 +89,6 @@ export const login = async (req: Request, res: Response) => {
     }
     catch (error: any) { res.status(500).json({ message: error.message || 'Server Error' }) }
 }
+
+
+
