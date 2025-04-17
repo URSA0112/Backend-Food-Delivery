@@ -48,18 +48,23 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         //After Hashed Pass, Trying to Creating New User . (Schema validation baihgui bol error)
         try {
             const newUser = yield userSchema_1.default.create(Object.assign(Object.assign({}, req.body), { password: hash }));
-            res.status(201).json({
+            const _b = newUser.toObject(), { password: _ } = _b, userObj = __rest(_b, ["password"]);
+            const token = jsonwebtoken_1.default.sign({ userObj }, process.env.SECRET_KEY, { expiresIn: '1h' });
+            res.status(200).json({
                 success: true,
-                message: `UserCreated ${newUser}`
+                message: 'Login successful',
+                token,
             });
+            return;
             //Email davhardsan ERROR of MONGODP == UNIQUE : true
         }
         catch (error) {
             if (error.code === 11000 && ((_a = error.keyPattern) === null || _a === void 0 ? void 0 : _a.email)) {
                 res.status(400).json({
                     success: false,
-                    message: 'This email is already registered. Please use another one.'
+                    message: `Oops! That email is already in use. Try logging in or use another one to register.`
                 });
+                return;
             }
             res.status(500).json({
                 success: false,
@@ -75,6 +80,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             success: false,
             message: error.message || 'Unexpected server error',
         });
+        return;
     }
 });
 exports.signUp = signUp;
@@ -83,7 +89,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield userSchema_1.default.findOne({ email });
         if (!user) {
-            res.status(404).json({ success: false, message: 'Email or password is incorrect' });
+            res.status(404).json({ success: false, message: 'Hmm… we couldn’t find that user. Try checking your email or sign up instead!' });
             return;
         }
         const isMatch = yield bcrypt_1.default.compare(password, user.password);
