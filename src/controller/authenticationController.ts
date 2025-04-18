@@ -44,7 +44,7 @@ export const signUp = async (req: Request, res: Response) => {
             }
             res.status(500).json({
                 success: false,
-                message: 'Server error',
+                message: error.message,
             });
             return;
         }
