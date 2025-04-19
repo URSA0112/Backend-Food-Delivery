@@ -19,7 +19,8 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://frontend-food-delivery-self.vercel.app"
+  "https://frontend-food-delivery-self.vercel.app",
+  "https://vercel.com/ursa0112s-projects/frontend-food-delivery"
 ];
 
 app.use(cors({

@@ -82,7 +82,7 @@ export const login = async (req: Request, res: Response) => {
         });
         return;
     }
-    catch (error: any) { res.status(500).json({ message: error.message || 'Server Error' }) }
+    catch (error: any) { res.status(500).json({ message: 'Server Error' }) }
 }
 
 
