@@ -33,7 +33,6 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { email, password } = req.body;
     try {
-        // Req.body email pass irj baigaag shalgana ! baihgui bol shuud zogsono. 
         if (!email) {
             res.status(400).json({ success: false, message: `email is required` });
             return;
@@ -42,38 +41,34 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).json({ success: false, message: `password is required` });
             return;
         }
-        //BCRYPT process
         const salt = yield bcryptjs_1.default.genSalt(12);
         const hash = yield bcryptjs_1.default.hash(password, salt);
-        //After Hashed Pass, Trying to Creating New User . (Schema validation baihgui bol error)
         try {
             const newUser = yield userSchema_1.default.create(Object.assign(Object.assign({}, req.body), { password: hash }));
             const _b = newUser.toObject(), { password: _ } = _b, userObj = __rest(_b, ["password"]);
             const token = jsonwebtoken_1.default.sign({ userObj }, process.env.SECRET_KEY, { expiresIn: '1h' });
             res.status(200).json({
                 success: true,
-                message: 'Login successful',
+                message: 'successfully registered',
                 token,
             });
             return;
-            //Email davhardsan ERROR of MONGODP == UNIQUE : true
         }
         catch (error) {
             if (error.code === 11000 && ((_a = error.keyPattern) === null || _a === void 0 ? void 0 : _a.email)) {
                 res.status(400).json({
                     success: false,
-                    message: `Oops! That email is already in use. Try logging in or use another one to register.`
+                    message: `Oops! That email is already in use. Try logging in or use another one to register.`,
                 });
                 return;
             }
             res.status(500).json({
                 success: false,
-                message: 'Server error',
+                message: error.message,
             });
             return;
         }
     }
-    // Busad ymr neg aldaa garsan uyd 
     catch (error) {
         console.error(error);
         res.status(500).json({
@@ -107,7 +102,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     catch (error) {
-        res.status(500).json({ message: error.message || 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
     }
 });
 exports.login = login;

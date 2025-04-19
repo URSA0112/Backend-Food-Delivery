@@ -7,9 +7,7 @@ dotenv.config();
 
 
 export const signUp = async (req: Request, res: Response) => {
-
     const { email, password } = req.body;
-
     try {
         if (!email) {
             res.status(400).json({ success: false, message: `email is required` });

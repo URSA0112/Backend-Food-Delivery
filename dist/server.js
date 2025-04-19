@@ -17,7 +17,8 @@ const PORT = process.env.PORT || 8000;
 app.use(express_1.default.json());
 const allowedOrigins = [
     "http://localhost:3000",
-    "https://frontend-food-delivery-self.vercel.app"
+    "https://frontend-food-delivery-self.vercel.app",
+    "https://vercel.com/ursa0112s-projects/frontend-food-delivery"
 ];
 app.use((0, cors_1.default)({
     origin: allowedOrigins,
