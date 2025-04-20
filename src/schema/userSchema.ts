@@ -29,10 +29,10 @@ const userSchema = new Schema<IUser>({
     orderedFoods: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
     isVerified: { type: Boolean },
 }, {
-    timestamps: true,  // This will automatically add `createdAt` and `updatedAt` fields
+    timestamps: true,  
 });
 
-// Create and export the User model based on the schema and interface
+
 const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;
